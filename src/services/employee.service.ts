@@ -29,7 +29,7 @@ export class EmployeeService extends DataService<Employee> {
   async createEmployee(data: any) {
     const parsed = EmployeeCreateSchema.safeParse(data);
     if (!parsed.success) {
-      throw new HttpError(parsed.error.message, 400);
+      throw new HttpError(parsed.error.issues.map(e => e.message).join(", "), 400);
     }
     const existingEmployee = await this.get({ email: data.email });
     if (existingEmployee) {
@@ -42,7 +42,7 @@ export class EmployeeService extends DataService<Employee> {
   async updateEmployee(id: string, data: any) {
     const parsed = EmployeeUpdateSchema.safeParse(data);
     if (!parsed.success) {
-      throw new HttpError(parsed.error.message, 400);
+      throw new HttpError(parsed.error.issues.map(e => e.message).join(", "), 400);
     }
     const updatedEmployee = await this.update({ id }, data);
     if (!updatedEmployee) {

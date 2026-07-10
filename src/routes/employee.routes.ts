@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { 
-  createEmployee, 
-  getEmployeeById, 
-  getEmployeeList, 
-  updateEmployee, 
-  deleteEmployee 
+import {
+  createEmployee,
+  getEmployeeById,
+  getEmployeeList,
+  updateEmployee,
+  deleteEmployee
 } from "../controllers/employee.controller";
 
 const router = Router();
@@ -81,6 +81,18 @@ router.get("/:id", getEmployeeById);
  *         schema:
  *           type: integer
  *           default: 10
+ *       - in: query
+ *         name: name
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: email
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: department
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Employees retrieved successfully
